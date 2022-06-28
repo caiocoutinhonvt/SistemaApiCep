@@ -28,5 +28,7 @@ def check_cep(request,cep):
                 "bairro": address_from_viacep['bairro'],
                 "cidade": address_from_viacep['localidade'], 
                 "uf": address_from_viacep['uf'], 
+                'descricao': '',
+                'complemento': '',
             }
         return JsonResponse(data, safe=False)
