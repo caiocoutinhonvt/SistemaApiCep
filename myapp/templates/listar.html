@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+
+{%block title%}Lista de endereços{%endblock%}
+
+{% block content %}
+<section>
+ <h2 id="title1">Lista de endereços
+  <a href="{% url 'url_cadastrar' %}" type="button" class="btn btn-primary" id="button1">Cadastrar Endereço</a>
+ </h2> 
+
+
+ <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Endereço</th>
+      <th scope="col">Número</th>
+      <th scope="col">Bairro</th>
+      <th scope="col">Cidade</th>
+      <th scope="col">Complemento</th>
+      <th scope="col">Uf</th>
+      <th scope="col">CEP</th>
+      <th scope="col">Descrição</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tbody>
+      <tr>
+       {% for a in address%} 
+        <td>{{a.endereco}}</td>
+        <td>{{a.numero}}</td>
+        <td>{{a.bairro}}</td>
+        <td>{{a.cidade}}</td>
+        <td>{{a.complemento}}</td>
+        <td>{{a.uf}}</td>
+        <td>{{a.cep}}</td>
+        <td>{{a.descricao}}</td>
+    </tbody>
+    {%endfor%}
+  </tbody>
+</table>
+{% endblock %}

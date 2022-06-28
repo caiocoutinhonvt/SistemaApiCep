@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{%block title%}Cadastrar{%endblock%}
+
+{% block head_extras %}
+<script>
+  
+  function limpa_formulário_cep() {
+          //Limpa valores do formulário de cep.
+          document.getElementById('endereco').value=("");
+          document.getElementById('bairro').value=("");
+          document.getElementById('cidade').value=("");
+          document.getElementById('uf').value=("");
+         
+  }
+
+  function meu_callback(conteudo) {
+      if (!("erro" in conteudo)) {
+          //Atualiza os campos com os valores.
+          document.getElementById('endereco').value=(conteudo.logradouro);
+          document.getElementById('bairro').value=(conteudo.bairro);
+          document.getElementById('cidade').value=(conteudo.localidade);
+          document.getElementById('uf').value=(conteudo.uf);
+          
+      } //end if.
+      else {
+          //CEP não Encontrado.
+          limpa_formulário_cep();
+          alert("CEP não encontrado.");
+      }
+  }
+      
+  function pesquisacep(valor) {
+
+      //Nova variável "cep" somente com dígitos.
+      var cep = valor.replace(/\D/g, '');
+
+      //Verifica se campo cep possui valor informado.
+      if (cep != "") {
+
+          //Expressão regular para validar o CEP.
+          var validacep = /^[0-9]{8}$/;
+
+          //Valida o formato do CEP.
+          if(validacep.test(cep)) {
+
+              //Preenche os campos com "..." enquanto consulta webservice.
+              document.getElementById('endereco').value="...";
+              document.getElementById('bairro').value="...";
+              document.getElementById('cidade').value="...";
+              document.getElementById('uf').value="...";
+          
+
+              //Cria um elemento javascript.
+              {#var script = document.createElement('script');#}
+
+              //Sincroniza com o callback.
+              // script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+              //Insere script no documento e carrega o conteúdo.
+              // document.body.appendChild(script);
+
+              $(function() {
+                  $.get( "http://127.0.0.1:8000/api/check_cep/" + valor, function( data ) {
+                    $( ".result" ).html( data );
+                    console.log(data)
+                    document.getElementById('endereco').value=(data.endereco);
+                    document.getElementById('bairro').value=(data.bairro);
+                    document.getElementById('cidade').value=(data.cidade);
+                    document.getElementById('numero').value=(data.numero);
+                    document.getElementById('uf').value=(data.uf);
+
+                   }).fail(function(e) {
+                      alert( "Cep não válido" );
+                   });
+               });
+
+
+              
+
+          } //end if.
+          else {
+              //cep é inválido.
+              limpa_formulário_cep();
+              alert("Formato de CEP inválido.");
+          }
+      } //end if.
+      else {
+          //cep sem valor, limpa formulário.
+          limpa_formulário_cep();
+      }
+  };
+
+  </script>
+{%endblock%}
+
+
+{%block content %}
+    <form method="post">
+        {% csrf_token %}
+    <h2 id="title1">Cadastro</h2>
+
+    <div id="forms">
+
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <label for="exampleFormControlInput1">CEP</label>
+            <p> {{form.cep}}</p>
+          </div>
+          <div class="col">
+            <label for="exampleFormControlInput1">Endereço</label>
+            <p> {{form.endereco}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="exampleFormControlInput1">Bairro</label>
+            <p> {{form.bairro}}</p>
+          </div>
+          <div class="col">
+            <label for="exampleFormControlInput1">Cidade</label>
+            <p> {{form.cidade }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+          <label for="exampleFormControlInput1">Número</label>
+          <p> {{form.numero}}</p>
+          </div>
+          <div class="col">
+            <label for="exampleFormControlInput1">Complemento</label>
+            <p> {{form.complemento}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="exampleFormControlInput1">UF</label>
+            {{form.uf}}
+          </div>
+          <div class="col">
+            <label for="exampleFormControlTextarea1">Descrição</label>
+            {{form.descricao}}
+          </div>
+        </div>
+        
+        <button class="btn btn-primary profile-button" type="submit" id="button2"> 
+            Salvar Alterações
+        </button>
+    </form>
+
+    <script>
+      jQuery(function($){
+        $('#cep').mask('00000-000');
+      });
+    </script>
+
+{% endblock %}
