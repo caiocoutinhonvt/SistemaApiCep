@@ -28,5 +28,6 @@ python manage.py runserver
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+<img src="docs/tela_lista.jpeg" style="width:900px"/>
+<img src="docs/tela_cadastro.jpeg" style="width:900px"/>
 
