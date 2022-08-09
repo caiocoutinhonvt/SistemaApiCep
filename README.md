@@ -30,4 +30,4 @@ python manage.py runserver
 
 ## Tecnologias Utilizadas
 
-Python | Django | Jquery | MySql | Docker | Bootstrap
+Python | Django | Django REST | Jquery | MySql | Docker | Bootstrap
