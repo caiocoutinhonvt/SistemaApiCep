@@ -1,5 +1,4 @@
 
-# E-Soft Teste Prático 
 
 Sistema de cadastro e listagem de endereços, utilizando Python e Django | Docker | MySql 
 
