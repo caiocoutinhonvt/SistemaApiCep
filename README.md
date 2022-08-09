@@ -1,7 +1,5 @@
 
 
-# Sistema de cadastro e listagem de endereços, utilizando Python e Django | Docker | MySql 
-
 ## Primeiros passos
 
 Instalando o projeto
@@ -24,9 +22,12 @@ python manage.py runserver
 - Autocomplete CEP, usando uma API própria e a API Viacep
 
 
-
 ## Screenshots
 
 <img src="docs/tela_lista.jpeg" style="width:900px"/>
 <img src="docs/tela_cadastro.jpeg" style="width:900px"/>
 
+
+## Tecnologias Utilizadas
+
+Python | Django | Jquery | MySql | Docker | Bootstrap
